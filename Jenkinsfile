@@ -8,7 +8,7 @@ def ecrUrl
 pipeline {
   agent any
   environment {
-    DOCKER_CLI_EXPERIMENTAL=enabled
+    DOCKER_CLI_EXPERIMENTAL="enabled"
   }
   stages {
     stage('Checkout') {
