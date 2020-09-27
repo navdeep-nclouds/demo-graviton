@@ -26,8 +26,10 @@ pipeline {
           steps {
             sh "make all"
             sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ecrUrl}"
-            sh "for i in amd64 arm64; do docker tag ${ecrNameSpace}:${i} ${ecrUrl}:${i} done"
-            sh "for i in amd64 arm64; do docker push ${ecrUrl}:${i} done"
+            sh "docker tag ${ecrNameSpace}:amd64 ${ecrUrl}:amd64"
+            sh "docker tag ${ecrNameSpace}:arm64 ${ecrUrl}:arm64"
+            sh "docker push ${ecrUrl}:amd64"
+            sh "docker push ${ecrUrl}:arm64"
             sh "docker manifest create ${ecrUrl} ${ecrUrl}:amd64 ${ecrUrl}:arm64"
             sh "docker manifest annotate --arch arm64 ${ecrUrl} ${ecrUrl}:arm64"
             sh "docker manifest push ${ecrUrl}"
