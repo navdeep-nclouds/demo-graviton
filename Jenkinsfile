@@ -24,7 +24,6 @@ pipeline {
       stages {
         stage('Build&Push') {
           steps {
-            #sh "\$(aws ecr get-login --region ${awsRegion} --no-include-email)"
             sh "make all"
             sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ecrUrl}"
             sh "for i in amd64 arm64; do docker tag ${ecrNameSpace}:${i} ${ecrUrl}:${i} done"
