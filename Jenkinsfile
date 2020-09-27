@@ -1,5 +1,4 @@
 // AWS Params
-def awsRegion = "us-west-2"
 def ecrNameSpace = "navdeep-poc/hello"
 def AWS_ACCOUNT_ID = "695292474035"
 def AWS_REGION = "us-west-2"
@@ -9,7 +8,7 @@ def ecrUrl
 pipeline {
   agent any
   environment {
-    MAVEN_OPTS='-Djava.awt.headless=true'
+    DOCKER_CLI_EXPERIMENTAL=enabled
   }
   stages {
     stage('Checkout') {
